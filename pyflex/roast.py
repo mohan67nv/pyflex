@@ -82,9 +82,9 @@ def generate_roast(author: str, func_name: str, complexity: int) -> str:
     ]
     return random.choice(roasts)
 
-def roast_file(filepath: str):
+def roast_file(filepath: str, export_path: str = None):
     """Parses the file, finds the worst function, and roasts the author."""
-    console = Console()
+    console = Console(record=True)
     
     func_info = get_most_complex_function(filepath)
     if not func_info:
@@ -106,3 +106,8 @@ def roast_file(filepath: str):
     console.print()
     console.print(panel)
     console.print()
+
+    if export_path:
+        console.save_svg(export_path, title=f"Roast: {filepath}")
+        console.print(f"[dim]Roast exported to {export_path}[/dim]")
+

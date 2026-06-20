@@ -18,7 +18,8 @@ console = Console()
 
 @app.command()
 def roast(
-    filepath: Path = typer.Argument(..., help="Path to the Python file you want to roast.")
+    filepath: Path = typer.Argument(..., help="Path to the Python file you want to roast."),
+    export: str = typer.Option(None, "--export", "-e", help="Path to save the output as an SVG image.")
 ):
     """
     Statically analyzes a Python file to find the most complex function,
@@ -32,15 +33,17 @@ def roast(
         console.print(f"[bold red]Error:[/bold red] File '{filepath}' must be a Python file (.py).")
         raise typer.Exit(code=1)
         
-    roast_file(str(filepath))
+    roast_file(str(filepath), export)
 
 @app.command()
-def flex():
+def flex(
+    export: str = typer.Option(None, "--export", "-e", help="Path to save the output as an SVG image.")
+):
     """
     Generates a viral GitHub Stats Card based on your local Git repository history.
     Calculates total LOC, commit streaks, total functions, and LOC written in the last 30 days!
     """
-    show_flex_card()
+    show_flex_card(export)
 
 if __name__ == "__main__":
     app()

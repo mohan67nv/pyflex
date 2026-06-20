@@ -8,6 +8,7 @@ from rich.panel import Panel
 from rich.text import Text
 from rich.layout import Layout
 from rich import box
+from rich.align import Align
 
 def _run_git_cmd(args: list) -> str:
     try:
@@ -88,7 +89,50 @@ def get_commit_streak(author: str) -> int:
             
     return longest_streak
 
-def show_flex_card():
+def get_time_spent(author: str) -> float:
+    # Get all commit UNIX timestamps, sorted oldest to newest
+    output = _run_git_cmd(["git", "log", f"--author={author}", "--format=%at"])
+    if not output:
+        return 0.0
+        
+    timestamps = sorted([int(t) for t in output.splitlines() if t.strip().isdigit()])
+    if not timestamps:
+        return 0.0
+        
+    total_seconds = 1800  # Base 30 mins for the first commit
+    for i in range(1, len(timestamps)):
+        diff = timestamps[i] - timestamps[i-1]
+        # If commits are within 2 hours of each other, count the time. 
+        # Otherwise, assume a new session started (add 30 mins).
+        if diff < 7200:
+            total_seconds += diff
+        else:
+            total_seconds += 1800
+            
+    return total_seconds / 3600.0
+
+def get_coding_persona(author: str) -> str:
+    output = _run_git_cmd(["git", "log", f"--author={author}", "--format=%at"])
+    if not output:
+        return "Unknown 👻"
+        
+    timestamps = [int(t) for t in output.splitlines() if t.strip().isdigit()]
+    if not timestamps:
+        return "Unknown 👻"
+        
+    hours = [datetime.fromtimestamp(t).hour for t in timestamps]
+    avg_hour = sum(hours) / len(hours)
+    
+    if avg_hour < 6 or avg_hour >= 23:
+        return "Night Owl 🦉"
+    elif 6 <= avg_hour < 12:
+        return "Early Bird 🌅"
+    elif 12 <= avg_hour < 18:
+        return "Afternoon Architect ☕"
+    else:
+        return "Evening Engineer 🌙"
+
+def show_flex_card(export_path: str = None):
     console = Console(record=True)
     
     # 1. Gather stats
@@ -104,6 +148,8 @@ def show_flex_card():
             total_funcs = 42
             loc_last_month = 500
             streak = 7
+            time_spent_hrs = 24.5
+            persona = "Mockingbird 🐦"
         else:
             return
     else:
@@ -111,6 +157,8 @@ def show_flex_card():
         total_funcs = get_total_functions(py_files)
         loc_last_month = get_loc_last_month(author)
         streak = get_commit_streak(author)
+        time_spent_hrs = get_time_spent(author)
+        persona = get_coding_persona(author)
 
     # 2. Design the Card
     table = Table(show_header=False, box=box.SIMPLE, padding=(0, 2))
@@ -119,8 +167,10 @@ def show_flex_card():
     
     table.add_row("👨‍💻 Developer", f"[bold yellow]{author}[/bold yellow]")
     table.add_row("💻 Primary Language", "Python 🐍")
+    table.add_row("🎭 Coding Persona", f"[bold magenta]{persona}[/bold magenta]")
     table.add_row("📈 Total Python LOC", f"{total_loc:,}")
     table.add_row("🛠️ Total Functions", f"{total_funcs:,}")
+    table.add_row("⏳ Est. Time Spent", f"{time_spent_hrs:,.1f} hours")
     table.add_row("🔥 Commit Streak", f"{streak} days")
     table.add_row("📅 LOC Last 30 Days", f"+{loc_last_month:,} lines")
 
@@ -133,5 +183,9 @@ def show_flex_card():
     )
     
     console.print()
-    console.print(panel)
+    console.print(Align.center(panel))
     console.print()
+
+    if export_path:
+        console.save_svg(export_path, title=f"Flex Card: {author}")
+        console.print(f"[dim]Flex Card exported to {export_path}[/dim]")
