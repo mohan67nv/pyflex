@@ -1,3 +1,7 @@
+"""
+Author: Mohana Nyamanahalli Venkatesha
+Description: Parses Python AST to find complex functions and generates AI roasts via Git blame.
+"""
 import ast
 import subprocess
 import random

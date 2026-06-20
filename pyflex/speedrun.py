@@ -1,3 +1,7 @@
+"""
+Author: Mohana Nyamanahalli Venkatesha
+Description: Provides the @speedrun decorator for execution time, memory, and Big-O profiling.
+"""
 import functools
 import time
 import inspect

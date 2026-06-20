@@ -1,3 +1,7 @@
+"""
+Author: Mohana Nyamanahalli Venkatesha
+Description: Defines the command-line interface (CLI) for PyFlex using Typer.
+"""
 import typer
 from pathlib import Path
 from .roast import roast_file

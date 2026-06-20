@@ -1,3 +1,7 @@
+"""
+Author: Mohana Nyamanahalli Venkatesha
+Description: Computes developer statistics from Git history and generates a GitHub Flex Card.
+"""
 import subprocess
 import ast
 import re
