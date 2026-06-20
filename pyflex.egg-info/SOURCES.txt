@@ -1,6 +1,8 @@
+README.md
 pyproject.toml
 pyflex/__init__.py
 pyflex/cli.py
+pyflex/flex.py
 pyflex/roast.py
 pyflex/speedrun.py
 pyflex.egg-info/PKG-INFO

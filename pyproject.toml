@@ -3,8 +3,8 @@ requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "pyflex"
-version = "0.1.0"
+name = "pyflex-cli"
+version = "0.1.1"
 description = "A viral hybrid code-profiler and AI-linter."
 readme = "README.md"
 requires-python = ">=3.9"
@@ -21,3 +21,6 @@ dependencies = [
 
 [project.scripts]
 pyflex = "pyflex.cli:app"
+
+[tool.setuptools.packages.find]
+include = ["pyflex*"]

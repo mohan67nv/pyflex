@@ -118,23 +118,23 @@ def get_time_spent(author: str) -> float:
 def get_coding_persona(author: str) -> str:
     output = _run_git_cmd(["git", "log", f"--author={author}", "--format=%at"])
     if not output:
-        return "Unknown"
+        return "Unknown 👻"
         
     timestamps = [int(t) for t in output.splitlines() if t.strip().isdigit()]
     if not timestamps:
-        return "Unknown"
+        return "Unknown 👻"
         
     hours = [datetime.fromtimestamp(t).hour for t in timestamps]
     avg_hour = sum(hours) / len(hours)
     
     if avg_hour < 6 or avg_hour >= 23:
-        return "Night Owl"
+        return "Night Owl 🦉"
     elif 6 <= avg_hour < 12:
-        return "Early Bird"
+        return "Early Bird 🌅"
     elif 12 <= avg_hour < 18:
-        return "Afternoon Architect"
+        return "Afternoon Architect ☕"
     else:
-        return "Evening Engineer"
+        return "Evening Engineer 🌙"
 
 def show_flex_card(export_path: str = None):
     console = Console(record=True)
@@ -153,7 +153,7 @@ def show_flex_card(export_path: str = None):
             loc_last_month = 500
             streak = 7
             time_spent_hrs = 24.5
-            persona = "Mockingbird"
+            persona = "Mockingbird 🐦"
         else:
             return
     else:
@@ -169,18 +169,18 @@ def show_flex_card(export_path: str = None):
     table.add_column("Stat", style="bold cyan")
     table.add_column("Value", style="bold white", justify="right")
     
-    table.add_row("Developer", f"[bold yellow]{author}[/bold yellow]")
-    table.add_row("Primary Language", "Python")
-    table.add_row("Coding Persona", f"[bold magenta]{persona}[/bold magenta]")
-    table.add_row("Total Python LOC", f"{total_loc:,}")
-    table.add_row("Total Functions", f"{total_funcs:,}")
-    table.add_row("Est. Time Spent", f"{time_spent_hrs:,.1f} hours")
-    table.add_row("Commit Streak", f"{streak} days")
-    table.add_row("LOC Last 30 Days", f"+{loc_last_month:,} lines")
+    table.add_row("👨‍💻 Developer", f"[bold yellow]{author}[/bold yellow]")
+    table.add_row("💻 Primary Language", "Python 🐍")
+    table.add_row("🎭 Coding Persona", f"[bold magenta]{persona}[/bold magenta]")
+    table.add_row("📈 Total Python LOC", f"{total_loc:,}")
+    table.add_row("🛠️ Total Functions", f"{total_funcs:,}")
+    table.add_row("⏳ Est. Time Spent", f"{time_spent_hrs:,.1f} hours")
+    table.add_row("🔥 Commit Streak", f"{streak} days")
+    table.add_row("📅 LOC Last 30 Days", f"+{loc_last_month:,} lines")
 
     panel = Panel(
         table,
-        title="[bold green]GitHub Flex Card[/bold green]",
+        title="[bold green]🏆 GitHub Flex Card 🏆[/bold green]",
         border_style="bold green",
         padding=(1, 4),
         expand=False

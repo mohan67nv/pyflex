@@ -4,7 +4,7 @@
 
 A viral, highly shareable hybrid code-profiler and AI-linter designed purely for developer pride. Benchmark your functions, roast your code, and generate beautiful terminal outputs that you can screenshot and share on LinkedIn and X!
 
-![Flex Card Demo](assets/flex_demo.svg)
+![Flex Card Demo](https://raw.githubusercontent.com/mohan67nv/pyflex/master/assets/flex_demo.svg)
 
 ## Features
 
@@ -39,7 +39,7 @@ my_complex_function(100)
 **Output:**
 A stunning Rich-formatted table in your terminal showing the Execution Time, Peak Memory, Estimated Big-O complexity, and your assigned Rank (e.g., "S-Tier: The Alchemist" or "F-Tier: The Spaghetti Chef"). If `export_path` is specified, it saves an SVG image ready for social media!
 
-![SpeedRun Demo](assets/dummy_speedrun.svg)
+![SpeedRun Demo](https://raw.githubusercontent.com/mohan67nv/pyflex/master/assets/dummy_speedrun.svg)
 
 ### 2. The AI Roaster CLI
 
@@ -55,7 +55,7 @@ pyflex roast examples/dummy.py
 3. Uses `git blame` to figure out who wrote it.
 4. Prints a hilarious, neon-bordered roast directly in your terminal.
 
-![Roast Demo](assets/roast_demo.svg)
+![Roast Demo](https://raw.githubusercontent.com/mohan67nv/pyflex/master/assets/roast_demo.svg)
 
 ### 3. The Developer Flex Card
 
