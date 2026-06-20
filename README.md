@@ -27,7 +27,7 @@ Every PyFlex command and decorator supports exporting its beautiful terminal out
 For CLI commands, simply append `--export <filename.svg>`:
 ```bash
 pyflex flex --export my_flex_card.svg
-pyflex roast examples/dummy.py --export roast_demo.svg
+pyflex roast your_script.py --export roast_demo.svg
 ```
 For the decorator, simply add the `export_path` argument: `@speedrun(export_path="my_speedrun.svg")`
 
@@ -56,7 +56,7 @@ A stunning Rich-formatted table in your terminal showing the Execution Time, Pea
 Want to publicly roast your coworkers (or yourself) for writing spaghetti code? Use the `pyflex roast` command.
 
 ```bash
-pyflex roast examples/dummy.py
+pyflex roast your_script.py
 ```
 
 **What it does:**
