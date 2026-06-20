@@ -21,6 +21,16 @@ pip install pyflex
 
 ## Usage
 
+### 🖼 Exporting Images
+Every PyFlex command and decorator supports exporting its beautiful terminal output directly to an SVG image! This is perfect for sharing on X (Twitter) or LinkedIn.
+
+For CLI commands, simply append `--export <filename.svg>`:
+```bash
+pyflex flex --export my_flex_card.svg
+pyflex roast examples/dummy.py --export roast_demo.svg
+```
+For the decorator, simply add the `export_path` argument: `@speedrun(export_path="my_speedrun.svg")`
+
 ### 1. The `@speedrun` Decorator
 
 Add the `@speedrun` decorator to your functions to benchmark them and get a beautifully formatted "SpeedRun Certificate".
